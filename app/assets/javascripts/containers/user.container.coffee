@@ -5,8 +5,8 @@ new class @UserBoxContainer extends React.Component
       users: []
 
   componentDidMount: ->
-    @request.getMany('/users').then (response) =>
-      @setState(users: response.json)
+    # @request.getMany('/users').then (response) =>
+      # @setState(users: response.json)
 
   render: ->
     users = @state.users.map (user) ->

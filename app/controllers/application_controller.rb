@@ -8,4 +8,8 @@ class ApplicationController < ActionController::Base
   def globals
     render "globals", format: :js, layout: nil
   end
+
+  def default_serializer_options
+    {root: false}
+  end
 end

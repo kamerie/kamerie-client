@@ -21,6 +21,7 @@
 
 # Rails
 config/database.yml
+config/mongoid.yml
 config/application.yml
 
 public/vendor
