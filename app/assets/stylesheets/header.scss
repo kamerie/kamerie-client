@@ -1,0 +1,15 @@
+#header {
+  @extend .navbar, .navbar-default;
+  .logo {
+    @extend .navbar-brand;
+  }
+  .links-container {
+    @extend .collapse, .navbar-collapse;
+    .links {
+      @extend .nav, .navbar-nav;
+      li {
+        position: relative;
+      }
+    }
+  }
+}
