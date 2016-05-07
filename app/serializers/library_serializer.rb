@@ -1,3 +1,3 @@
 class LibrarySerializer < ActiveModel::MongoidSerializer
-  attributes :_id, :media_type, :media_path
+  attributes :_id, :library_type, :library_path, :last_modified
 end

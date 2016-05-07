@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :libraries
+    resources :media
   end
 
   root 'application#home'

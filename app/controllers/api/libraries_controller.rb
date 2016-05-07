@@ -21,6 +21,6 @@ class Api::LibrariesController < ActionController::Base
   private
 
   def library_params
-    params.permit(:media_path, :media_type)
+    params.permit(:library_path, :library_type)
   end
 end

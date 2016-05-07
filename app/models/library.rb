@@ -2,6 +2,7 @@ class Library
   include Mongoid::Document
   store_in collection: 'Library'
 
-  field :media_type
-  field :media_path
+  field :library_type
+  field :library_path
+  field :last_modified
 end
