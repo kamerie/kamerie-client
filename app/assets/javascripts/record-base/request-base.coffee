@@ -1,6 +1,7 @@
 class @RequestBase
   _adapter: FetchAdapter
   _namespace: '/api'
+  _format: 'json'
 
   constructor: (@transformTo, @config) ->
     throw new Error("transformTo argument must be specified") unless @transformTo?
@@ -41,4 +42,4 @@ class @RequestBase
           reject(response)
 
   url: (url) ->
-    [@_namespace, url].join('/')
+    [@_namespace, url].join('/') + ".#{@_format}"
