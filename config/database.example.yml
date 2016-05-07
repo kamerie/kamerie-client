@@ -5,18 +5,18 @@ default: &default
 
 development:
   <<: *default
-  database: redmarker_development
-  username: redmarker
+  database: kamerie_development
+  username: kamerie
   password: password
 
 test:
   <<: *default
-  database: redmarker_test
-  username: redmarker
+  database: kamerie_test
+  username: kamerie
   password: password
 
 production:
   <<: *default
-  database: redmarker_production
-  username: redmarker
+  database: kamerie_production
+  username: kamerie
   password: password

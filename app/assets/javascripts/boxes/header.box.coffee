@@ -15,7 +15,7 @@ class @HeaderBox extends React.Component
     <nav id="header">
       <div className="container-fluid">
         <div className="navbar-header">
-          <a href="/" className="logo">Redmarker</a>
+          <a href="/" className="logo">Kamerie</a>
         </div>
         <div className="links-container">
           <ul className="links">

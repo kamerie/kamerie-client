@@ -1,0 +1,34 @@
+jquery:
+  js:
+    - //cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery{.min}.js
+react:
+  js:
+    - /vendor/react/react{.min}.js
+    - /vendor/react/react-dom{.min}.js
+    - /vendor/react/react-with-addons{.min}.js
+"es6-promise":
+  js:
+    - /vendor/es6-promise/es6-promise{.min}.js
+fetch:
+  js:
+    - /vendor/fetch/fetch.js
+"js-cookie":
+  js:
+    - /vendor/js-cookie/src/js.cookie.js
+tether:
+  js:
+    - /vendor/tether/dist/js/tether{.min}.js
+  css:
+    - /vendor/tether/dist/css/tether-theme-basic{.min}.css
+    - /vendor/tether/dist/css/tether-theme-arrows{.min}.css
+    - /vendor/tether/dist/css/tether-theme-arrows-dark{.min}.css
+"tether-drop":
+  js:
+    - /vendor/tether-drop/dist/js/drop{.min}.js
+  css:
+    - /vendor/tether-drop/dist/css/drop-theme-basic{.min}.css
+    - /vendor/tether-drop/dist/css/drop-theme-arrows{.min}.css
+    - /vendor/tether-drop/dist/css/drop-theme-arrows-bounce{.min}.css
+    - /vendor/tether-drop/dist/css/drop-theme-arrows-bounce-dark{.min}.css
+    - /vendor/tether-drop/dist/css/drop-theme-hubspot-popovers{.min}.css
+    - /vendor/tether-drop/dist/css/drop-theme-twipsy{.min}.css
