@@ -9,6 +9,11 @@ class Api::LibrariesController < ActionController::Base
     render json: library, serializer: LibrarySerializer, root: false
   end
 
+  def movies
+    libraries = Library.movies.where(library_params.except(:library_type))
+    render json: libraries, each_serializer: LibrarySerializer, root: false
+  end
+
   def create
   end
 

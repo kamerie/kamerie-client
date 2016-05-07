@@ -1,6 +1,6 @@
 class @HeaderBox extends React.Component
   constructor: ->
-    @request = new RequestBase(User)
+    # @request = new RequestBase(Media)
     @state =
       user: {}
       open: no

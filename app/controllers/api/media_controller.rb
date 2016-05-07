@@ -9,6 +9,11 @@ class Api::MediaController < ActionController::Base
     render json: media, serializer: MediaSerializer, root: false
   end
 
+  def movies
+    media = Media.movies.where(media_params.except(:media_type))
+    render json: media, each_serializer: MediaSerializer, root: false
+  end
+
   def create
   end
 

@@ -1,5 +1,6 @@
 class @RequestBase
   _adapter: FetchAdapter
+  _namespace: '/api'
 
   constructor: (@transformTo, @config) ->
     throw new Error("transformTo argument must be specified") unless @transformTo?
@@ -15,7 +16,7 @@ class @RequestBase
     new Promise (resolve, reject) =>
       console.debug "RequestBase getOne,", url
 
-      @_adapter.get(url, params)
+      @_adapter.get(@url(url), params)
         .then (response) =>
           console.debug "RequestBase getOne success, resolving", response
           response.json().then (body) =>
@@ -29,7 +30,7 @@ class @RequestBase
     new Promise (resolve, reject) =>
       console.debug "RequestBase getMany,", url
 
-      @_adapter.get(url, params)
+      @_adapter.get(@url(url), params)
         .then (response) =>
           console.debug "RequestBase getMany success, resolving", response
           response.json().then (body) =>
@@ -38,3 +39,6 @@ class @RequestBase
         .catch (response) ->
           console.debug "RequestBase getMany error, rejecting", response
           reject(response)
+
+  url: (url) ->
+    [@_namespace, url].join('/')

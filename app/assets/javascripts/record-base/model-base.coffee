@@ -16,7 +16,10 @@ class @ModelBase
     unless typeof attributes is 'object' and not Array.isArray(attributes)
       throw Error("<attributes> must be a JSON")
 
-    attributes = (toCamelCase attributes)
+    attributes = (toCamelCase attributes, ['_id'])
+
+    if typeof attributes['_id'] is 'object' and '$oid' of attributes['_id']
+      attributes['_id'] = attributes['_id']['$oid']
 
     for key, value of attributes
       this[key] = value
