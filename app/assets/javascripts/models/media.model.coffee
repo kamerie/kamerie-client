@@ -1,1 +1,1 @@
-class @Media extends ModelBase
+class @Media extends MongoModel
