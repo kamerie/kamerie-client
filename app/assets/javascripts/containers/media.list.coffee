@@ -21,7 +21,7 @@ new class @MediaList extends React.Component
       <thead>
         <tr>
           <th>ID</th>
-          <th>Media Path</th>
+          <th>Name</th>
           <th>Media Type</th>
         </tr>
       </thead>
