@@ -9,7 +9,7 @@
 #       @computed = @one * @two
 ###
 class @ModelBase
-  ignoreAttributes: ['_id']
+  ignoreAttributes: []
 
   ###
   # @param attributes <object>: the json object to create the model from
@@ -19,13 +19,16 @@ class @ModelBase
       throw Error("<attributes> must be a JSON")
 
     attributes = (toCamelCase attributes, ['_id'])
-      .filter (attr) => attr not in @ignoreAttributes
+    for key, value of attributes
+      delete attributes[key] if key in @ignoreAttributes
 
     for key, value of attributes
       this[key] = value
 
     @relations?()
     @extraAttributes?()
+
+    return this
 
   ###
   # One-to-one relation for other model classes.

@@ -9,8 +9,13 @@ new class @MediaList extends React.Component
       @setState(media: response.json)
 
   render: ->
-    media = @state.media.map (media) ->
-      <MediaBox key={media._id} media={media} />
+    media = if @state.media.length
+      @state.media.map (media) ->
+        <MediaBox key={media._id} media={media} />
+    else
+      <tr>
+        <td colSpan=3 style={{textAlign: 'center'}}>No results to show</td>
+      </tr>
 
     <table className="media-container table table-stripes table-bordered">
       <thead>
