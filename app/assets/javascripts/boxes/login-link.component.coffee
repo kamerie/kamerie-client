@@ -2,15 +2,16 @@ class @LoginLink extends React.Component
   componentDidMount: ->
     node = ReactDOM.findDOMNode(this)
 
-    new Drop {
+    @drop = new Drop {
       target: node
       position: 'bottom center'
-      content: '<h1>Login</h1>'
+      content: ' '
       openOn: 'click'
       classes: 'drop-theme-basic drop-theme-arrows'
     }
 
     ReactDOM.render(<a href="#" onClick={->no} className="login">Login</a>, node)
+    ReactDOM.render(<h2>Login here</h2>, @drop?.drop?.firstChild)
 
   render: ->
     <li />

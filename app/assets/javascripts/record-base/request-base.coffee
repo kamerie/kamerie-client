@@ -1,6 +1,6 @@
 class @RequestBase
   _adapter: FetchAdapter
-  _namespace: '/api'
+  _namespace: 'api'
   _format: 'json'
 
   constructor: (@transformTo, @config) ->
@@ -42,4 +42,7 @@ class @RequestBase
           reject(response)
 
   url: (url) ->
-    [@_namespace, url].join('/') + ".#{@_format}"
+    [@_namespace, url]
+      .map((i)-> i.replace(/(^\/)|(\/$)/, ''))
+      .join('/') \
+      + ".#{@_format}"
