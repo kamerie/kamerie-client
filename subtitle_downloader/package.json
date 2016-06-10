@@ -10,18 +10,16 @@
 
   "settings": {
     "opensubtitles": {
-      "docs": "https://trac.opensubtitles.org/projects/opensubtitles/wiki/XMLRPC"
-      "module": "opensubtitles.py",
+      "docs": "https://trac.opensubtitles.org/projects/opensubtitles/wiki/XMLRPC",
       "class": "OpenSubtitles",
       "host": "https://api.opensubtitles.org:443/xml-rpc",
       "useragent": "Arachno Sub",
       "username": "chenasraf",
       "password": "305600215",
-      "language": "en",
+      "language": "en"
     },
     "subdb": {
       "docs": "http://thesubdb.com/api/",
-      "module": "subdb.py",
       "class": "SubDB",
       "host": "http://api.thesubdb.com/?action=",
       "actions": ["search", "download", "languages", "upload"],
@@ -29,7 +27,6 @@
     },
     "submax": {
       "docs": "http://subsmax.com/subtitles-api/",
-      "module": "submax.py",
       "class": "SubMax",
       "host": "http://subsmax.com/api/{limit}/{search_string}"
     }
