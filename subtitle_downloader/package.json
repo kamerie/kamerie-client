@@ -1,0 +1,31 @@
+{
+  "author": {
+    "name": "Kamerie",
+    "email": "dev@kamerie.com"
+  },
+
+  "name": "Subtitle Downloader",
+  "version": "0.1",
+  "description": "Automatic subtitle downloader. (Supported apis: OpenSubtitles)",
+
+  "settings": {
+    "opensubtitles": {
+      "docs": "https://trac.opensubtitles.org/projects/opensubtitles/wiki/XMLRPC"
+      "host": "https://api.opensubtitles.org:443/xml-rpc",
+      "useragent": "Arachno Sub",
+      "username": "chenasraf",
+      "password": "305600215",
+      "language": "en",
+    },
+    "subdb": {
+      "docs": "http://thesubdb.com/api/",
+      "host": "http://api.thesubdb.com/?action=",
+      "actions": ["search", "download", "languages", "upload"],
+      "useragent": "SubDB/1.0 (Kamerie/{version}; https://github.com/kamerie)"
+    },
+    "submax": {
+      "docs": "http://subsmax.com/subtitles-api/",
+      "host": "http://subsmax.com/api/{limit}/{search_string}"
+    }
+  }
+}
