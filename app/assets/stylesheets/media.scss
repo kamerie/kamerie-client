@@ -5,6 +5,7 @@
     padding-bottom: 56.25%;
     height        : 0;
     .thumbnail-poster {
+      @extend .img-rounded;
       position       : absolute;
       top            : 0;
       left           : 0;
@@ -14,7 +15,6 @@
       background-size: cover;
     }
     .no-poster {
-      @extend .img-rounded;
       background: $armadillo;
       .no-poster-icon {
         @extend .glyphicon, .glyphicon-film, %center-both;

@@ -11,6 +11,8 @@
     # obj = obj
   else if typeof obj is 'object'
     for own key, value of obj
+      if typeof value is 'object'
+        value = toCamelCase value, ignoredKeys
       obj[toCamelCase key, ignoredKeys] = value
       delete obj[key] unless key is (toCamelCase key, ignoredKeys)
 
