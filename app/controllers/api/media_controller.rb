@@ -31,6 +31,6 @@ class Api::MediaController < ActionController::Base
   private
 
   def media_params
-    params.permit(:media_path, :media_type)
+    params.permit(:media_path, :media_type, :name)
   end
 end
