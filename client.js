@@ -3,5 +3,5 @@ const app = require('./src/root.vue')
 
 new Vue({
   el: '#root',
-  render(h) { h(app) }
+  render(h) { return h(app) }
 })

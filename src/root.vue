@@ -1,36 +1,50 @@
 <template>
   <div id="app">
-    <!-- <img src="./assets/logo.png"> -->
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
+    <h1>Search Movies</h1>
+    <input id="query" type="text"
+      placeholder="Movie name"
+      v-model="query"
+      v-on:keyup="search(this.value)">
+
+    <ul v-if="movieList.length">
+      <li v-for="movie of movieList.slice(0, 10)">
+        <h2>{{ movie.name }}</h2>
+        <h3>{{ movie.year }}</h3>
+        {{ movie }}
+      </li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {
+const debounce = require('debounce')
+const request = require('axios')
+
+const BASE_URL = 'http://localhost:8000'
+
+module.exports = {
   name: 'app',
-  data () {
+  methods: {
+    search: debounce(function () {
+      if (!this.query.length) return
+
+      console.debug('Searching for', this.query)
+      let url = BASE_URL + '/api/search?q=' + encodeURIComponent(this.query)
+      request.get(url).then((response) => {
+        this.movieList = response
+      })
+    }, 500)
+  },
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      query: '',
+      movieList: []
     }
   }
 }
 </script>
 
-<style>
+<style lang="less">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -38,23 +52,13 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
 
-h1, h2 {
-  font-weight: normal;
-}
+  h1, h2 {
+    font-weight: normal;
+  }
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
+  #query {
 
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
+  }
 }
 </style>

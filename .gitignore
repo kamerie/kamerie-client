@@ -56,3 +56,6 @@ typings/
 
 # output files
 dist/
+
+# dotenv environment variables file
+.env
