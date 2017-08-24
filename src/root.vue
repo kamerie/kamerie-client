@@ -6,13 +6,11 @@
       v-model="query"
       v-on:keyup="search(this.value)">
 
-    <ul v-if="movieList.length">
-      <li v-for="movie of movieList.slice(0, 10)">
-        <h2>{{ movie.name }}</h2>
-        <h3>{{ movie.year }}</h3>
-        {{ movie }}
-      </li>
-    </ul>
+    <div v-if="movieList.length">
+      <div v-for="movie of movieList.slice(0, 10)">
+        <h2>{{ movie.original_title }} ({{ movie.release_date }})</h2>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -31,7 +29,7 @@ module.exports = {
       console.debug('Searching for', this.query)
       let url = BASE_URL + '/api/search?q=' + encodeURIComponent(this.query)
       request.get(url).then((response) => {
-        this.movieList = response
+        this.movieList = response.data
       })
     }, 500)
   },
