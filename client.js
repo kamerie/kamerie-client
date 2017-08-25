@@ -1,7 +1,8 @@
+// require('./req')('kamerie')
 const Vue = require('vue').default
-const app = require('./src/root.vue')
+const root = require('./views/root.vue')
 
 new Vue({
   el: '#root',
-  render(h) { return h(app) }
+  render(h) { return h(root) }
 })

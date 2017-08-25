@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const tmdb = _require('lib/tmdb')
+const tmdb = lib('server/tmdb')
 
 const YEAR_REGEX =  /(\d{2}){2}/i
 
@@ -27,7 +27,7 @@ router.get('/search', (req, res) => {
   }
 
   tmdb('/search/movie/', {query, year}).then(response => {
-    console.log('response', response)
+    console.log('result count:', response.results ? response.results.length : 0)
     res.json(response.results)
   })
 })

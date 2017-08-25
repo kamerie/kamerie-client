@@ -21,8 +21,11 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|server)/,
         loader: 'babel-loader',
+        query: {
+          compact: false
+        }
       },
       {
         test: /\.vue$/,
@@ -50,7 +53,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      'storage': path.resolve(__dirname, 'storage')
     }
   },
   devServer: {

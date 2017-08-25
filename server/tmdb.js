@@ -1,5 +1,5 @@
 const request = require('request-promise')
-const config = _require('lib/config').tmdb
+const config = lib('server/config').tmdb
 
 module.exports = function tmdb(route, qs = {}, options = {}) {
   options.qs = options.qs || qs

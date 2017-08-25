@@ -1,11 +1,11 @@
-// global require function: _require(module)
-require('./req')('_require')
+// global require function: lib(module)
+require('./req')('lib')
 require('dotenv').config()
 const express = require('express')
 const app = express()
-const tmdb = _require('lib/tmdb')
+const tmdb = lib('server/tmdb')
 const cors = require('cors')
-const apiRouter = _require('lib/api-router')
+const apiRouter = lib('server/api-router')
 
 app.use('/api', cors(), apiRouter)
 app.use((err, req, res, next) => {
@@ -16,5 +16,5 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(8000, function() {
-  console.log('Listening on port 8000')
+  console.log('API Server is listening on port 8000')
 })
