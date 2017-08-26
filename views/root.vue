@@ -43,8 +43,11 @@ module.exports = {
   },
   methods: {
     search: debounce(function(e) {
-      this.loading = true
+      this.results.splice(0)
+      if (!this.query.length)
+        return
 
+      this.loading = true
       let query = this.query
       let url = BASE_URL + '/api/search?q=' + encodeURIComponent(query)
       console.debug('Searching for', query)
@@ -72,8 +75,9 @@ module.exports = {
   },
   computed: {
     filteredResults() {
-      return this.results.slice(0, 10).map(movie => {
-        movie.added = movie.added || false
+      let page = (this.page || 0) * this.pageSize
+      return this.results.slice(page, this.pageSize).map(movie => {
+        movie.added = MovieList.get(movie) != null
         return movie
       })
     }
@@ -84,6 +88,8 @@ module.exports = {
       results: [],
       loading: false,
       MovieList: [],
+      page: 0,
+      pageSize: 10
     }
   }
 }
@@ -97,6 +103,8 @@ module.exports = {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  max-width: 600px;
+  margin: 0 auto;
 
   h1, h2 {
     font-weight: normal;
@@ -112,7 +120,6 @@ module.exports = {
     border: 1px solid #dcdcdc;
     transition: border .3s ease-in-out;
     width: 100%;
-    max-width: 600px;
 
     &:focus {
       outline: 0;
@@ -120,17 +127,16 @@ module.exports = {
     }
   }
 
-  .results-container {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
   .search-result {
     font-weight: 500;
     text-decoration: none;
     border-bottom: 1px solid #ddd;
     display: block;
+    padding: 7px;
+
+    &.added {
+      background: #efe;
+    }
 
     &:hover {
 

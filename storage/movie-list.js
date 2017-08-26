@@ -1,6 +1,5 @@
 class MovieList {
   constructor() {
-    console.debug('MovieList.constructor', ...arguments)
     this._movies = {}
   }
 
