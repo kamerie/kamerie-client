@@ -1,4 +1,5 @@
 // global require function: lib(module)
+process.on('SIGUSR2', () => { process.exit(0); })
 require('./req')('lib')
 require('dotenv').config()
 const express = require('express')

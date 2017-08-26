@@ -3,21 +3,27 @@
     <h1>Search Movies</h1>
     <input id="query" type="text"
       placeholder="Movie name"
-      v-model="query"
-      v-on:keyup="search">
+      autofocus
+      v-model="query">
 
     <div v-if="loading">
       Searching...
     </div>
-    <div v-if="!loading && results.length">
-      <div v-for="movie of results.slice(0, 10)" v-on:click="add(movie)"
-        v-bind:style="{ backgroundColor: MovieList.includes(movie) ? '#eee' : undefined }">
-        <h2>{{ movie.original_title }} ({{ movie.release_date }})</h2>
-      </div>
+    <div class="results-container"
+      v-if="!loading && results.length">
+      <a class="search-result"
+        v-for="(movie, index) of results"
+        v-on:click.prevent="movie.added = toggle($event, index)"
+        v-bind:class="{ added: movie.added }"
+        href="#">
+        <h2>
+          [{{ movie.added ? 'remove' : 'add' }}]
+          {{ movie.original_title }} ({{ movie.release_date }})
+        </h2>
+      </a>
     </div>
 
     <div v-if="MovieList.length">
-
     </div>
   </div>
 </template>
@@ -26,40 +32,48 @@
 const debounce = require('debounce')
 const request = require('axios')
 const MovieList = require('storage/movie-list')
-console.debug({MovieList})
 
 const BASE_URL = 'http://localhost:8000'
 
 module.exports = {
   name: 'app',
   methods: {
-    search: debounce(function (e) {
-      // this hack is to accept any search that CONTAINS keys that are not special keys but
-      // doesn't only rely on the last key but any in the query
-      this._validKey = !~['Meta', 'Control', 'Shift'].indexOf(e.key) ? e.key : this._validKey
-      if (this._validKey == null || !this.query.length) {
-        this._validKey = null
-        return
-      }
+    search: debounce(function(e) {
       this.loading = true
 
-      console.debug('Searching for', this.query)
-      let url = BASE_URL + '/api/search?q=' + encodeURIComponent(this.query)
+      let query = this.query
+      let url = BASE_URL + '/api/search?q=' + encodeURIComponent(query)
+      console.debug('Searching for', query)
+
       request.get(url).then(response => {
+        console.debug(response.data ? response.data.length : 0, 'results found for', query)
         this.results = response.data
         this.loading = false
-        this._validKey = null
       })
     }, 500),
 
-    add(movie) {
-      console.debug("Adding", movie)
-      if (!movie || MovieList.includes(movie))
+    toggle(e, index) {
+      e.preventDefault()
+      let movie = this.results && this.results[index]
+      console.group("Toggling", movie.original_titile, movie)
+      if (!movie)
         return
-      console.debug(true)
-      MovieList.unshift(movie)
-      movie.added = true
+
+      MovieList.toggle(movie)
+      movie.added = MovieList.get(movie) != null
+      console.debug(movie.added ? 'Added' : 'Removed', movie.original_title)
+      console.debug({ MovieList })
+      console.groupEnd()
+      return movie.added
     }
+  },
+  watch: {
+    query() {
+      this.search()
+    }//,
+    // results() {
+    //   this.results.forEach(item => item.added = MovieList.get(item) != null)
+    // }
   },
   data() {
     return {
@@ -67,7 +81,6 @@ module.exports = {
       results: [],
       loading: false,
       MovieList: [],
-      _validKey: null,
     }
   }
 }
@@ -86,8 +99,37 @@ module.exports = {
     font-weight: normal;
   }
 
-  #query {
+  a:visited {
+    color: currentColor;
+  }
 
+  #query {
+    padding: 15px 7px;
+    font-size: 1.3em;
+    border: 1px solid #dcdcdc;
+    transition: border .3s ease-in-out;
+
+    &:focus {
+      outline: 0;
+      border-color: #3b99fc;
+    }
+  }
+
+  .results-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .search-result {
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid #ddd;
+    display: block;
+
+    &:hover {
+
+    }
   }
 }
 </style>

@@ -1,11 +1,26 @@
-class MovieList extends Array {
+class MovieList {
   constructor() {
-    super(...arguments)
+    console.debug('MovieList.constructor', ...arguments)
+    this._movies = {}
   }
 
-  includes(value) {
-    value = typeof value == 'number' ? value : value.id
-    return this.find(movie => movie.id == value)
+  add(item) {
+    return this._movies[item.id] = item
+  }
+
+  remove(item) {
+    return delete this._movies[item.id]
+  }
+
+  get(item) {
+    return this._movies[item.id]
+  }
+
+  toggle(item) {
+    if (this.get(item))
+      return this.remove(item)
+    else
+      return this.add(item)
   }
 }
 module.exports = new MovieList()
