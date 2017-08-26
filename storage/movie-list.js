@@ -18,9 +18,13 @@ class MovieList {
 
   toggle(item) {
     if (this.get(item))
-      return this.remove(item)
+      return this.remove(item) && false
     else
-      return this.add(item)
+      return this.add(item) && true
+  }
+
+  get length() {
+    return Object.keys(this._movies).length
   }
 }
 module.exports = new MovieList()

@@ -6,25 +6,25 @@
       autofocus
       v-model="query">
 
-    <div v-if="loading">
+    <h3>{{MovieList.length}} item{{MovieList.length != 1 ? 's' : ''}} in list</h3>
+
+    <div class="loading" v-if="loading">
       Searching...
     </div>
     <div class="results-container"
       v-if="!loading && results.length">
       <a class="search-result"
-        v-for="(movie, index) of results"
-        v-on:click.prevent="movie.added = toggle($event, index)"
+        v-for="(movie, index) of filteredResults"
+        v-on:click.prevent="toggle(index)"
         v-bind:class="{ added: movie.added }"
         href="#">
         <h2>
-          [{{ movie.added ? 'remove' : 'add' }}]
+          [{{ movie.added ? 'Remove' : 'Add' }}]
           {{ movie.original_title }} ({{ movie.release_date }})
         </h2>
       </a>
     </div>
 
-    <div v-if="MovieList.length">
-    </div>
   </div>
 </template>
 
@@ -32,11 +32,15 @@
 const debounce = require('debounce')
 const request = require('axios')
 const MovieList = require('storage/movie-list')
+const Vue = require('vue').default
 
 const BASE_URL = 'http://localhost:8000'
 
 module.exports = {
   name: 'app',
+  mounted() {
+    this.MovieList = MovieList
+  },
   methods: {
     search: debounce(function(e) {
       this.loading = true
@@ -51,29 +55,28 @@ module.exports = {
         this.loading = false
       })
     }, 500),
-
-    toggle(e, index) {
-      e.preventDefault()
+    toggle(index) {
       let movie = this.results && this.results[index]
-      console.group("Toggling", movie.original_titile, movie)
       if (!movie)
         return
 
-      MovieList.toggle(movie)
-      movie.added = MovieList.get(movie) != null
-      console.debug(movie.added ? 'Added' : 'Removed', movie.original_title)
-      console.debug({ MovieList })
-      console.groupEnd()
+      movie.added = MovieList.toggle(movie)
+      Vue.set(this.results, index, movie)
       return movie.added
     }
   },
   watch: {
     query() {
       this.search()
-    }//,
-    // results() {
-    //   this.results.forEach(item => item.added = MovieList.get(item) != null)
-    // }
+    }
+  },
+  computed: {
+    filteredResults() {
+      return this.results.slice(0, 10).map(movie => {
+        movie.added = movie.added || false
+        return movie
+      })
+    }
   },
   data() {
     return {
@@ -108,6 +111,8 @@ module.exports = {
     font-size: 1.3em;
     border: 1px solid #dcdcdc;
     transition: border .3s ease-in-out;
+    width: 100%;
+    max-width: 600px;
 
     &:focus {
       outline: 0;
